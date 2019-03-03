@@ -28,7 +28,8 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_get_started"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:tabBackground="@drawable/indicator_selector">
+        app:tabBackground="@drawable/indicator_selector"
+        app:tabIndicatorColor="#fff">
 
     </android.support.design.widget.TabLayout>
 
