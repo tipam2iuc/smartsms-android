@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "726088633342",
+    "firebase_url": "https://smartsms-48d90.firebaseio.com",
+    "project_id": "smartsms-48d90",
+    "storage_bucket": "smartsms-48d90.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:726088633342:android:014e8d6aa492e6fb",
+        "android_client_info": {
+          "package_name": "com.example.lamchard.smartsms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "726088633342-5a6vv7d8i9r1qocio7fr9e08v58dlpeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lamchard.smartsms",
+            "certificate_hash": "df51be7a5c32118798f547ffb52008f087d1494f"
+          }
+        },
+        {
+          "client_id": "726088633342-0lbej01vorcn30t3bvqmcfg2uk8vo65n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUBPFFfDmx-hj7qEpucxDVHhDa9XAmkds"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "726088633342-0lbej01vorcn30t3bvqmcfg2uk8vo65n.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
