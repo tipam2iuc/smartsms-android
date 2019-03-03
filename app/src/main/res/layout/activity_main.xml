@@ -11,9 +11,12 @@
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="#293b72"
+        android:theme="@style/ToolbarTheme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent"
+        app:titleTextAppearance="@style/Toolbar.TitleText"
+        app:titleTextColor="#fff">
 
     </android.support.v7.widget.Toolbar>
 
