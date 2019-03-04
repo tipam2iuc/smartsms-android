@@ -5,11 +5,16 @@
         android:title="Profils"
         android:id="@+id/profils_id"/>
     <item
-        android:title="Paramétre"
-        android:id="@+id/settings_id"/>
+    android:title="Paramétre"
+    android:id="@+id/settings_id"/>
+
     <item
-        android:title="A Propos"
-        android:id="@+id/apropos_id"/>
+        android:title="Notification"
+        android:id="@+id/notification_id"/>
+
+    <item
+        android:title="Déconnexion"
+        android:id="@+id/deconnection_id"/>
 
     <item
         android:title=""

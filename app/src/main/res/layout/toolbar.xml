@@ -8,7 +8,6 @@
     android:background="#293b72"
     android:theme="@style/ToolbarTheme"
     app:titleTextAppearance="@style/Toolbar.TitleText"
-    app:titleTextColor="#fff"
-    >
+    app:titleTextColor="#fff">
 
 </android.support.v7.widget.Toolbar>
