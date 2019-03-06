@@ -15,7 +15,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.lamchard.smartsms.models.ScreenItem;
+import com.example.lamchard.smartsms.Adapters.IntroViewPagerAdapter;
+import com.example.lamchard.smartsms.Models.ScreenItem;
 
 import java.util.ArrayList;
 import java.util.List;

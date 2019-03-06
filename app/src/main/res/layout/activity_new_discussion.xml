@@ -47,7 +47,7 @@
         android:id="@+id/imageButton_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="16dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="@+id/editText_nameDestinataire"
         app:layout_constraintEnd_toEndOf="parent"
@@ -58,14 +58,13 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/divider2" />
 
     <EditText
-        android:id="@+id/editText2"
+        android:id="@+id/editTextMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
@@ -79,7 +78,7 @@
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton2"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonSendMessage"
         app:layout_constraintStart_toStartOf="parent" />
 
     <View
@@ -87,12 +86,14 @@
         android:layout_width="0dp"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintBottom_toTopOf="@+id/editText2"
+        app:layout_constraintBottom_toTopOf="@+id/editTextMessage"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="2dp"
+        app:elevation="2dp"/>
 
     <ImageButton
-        android:id="@+id/imageButton2"
+        android:id="@+id/imageButtonSendMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
