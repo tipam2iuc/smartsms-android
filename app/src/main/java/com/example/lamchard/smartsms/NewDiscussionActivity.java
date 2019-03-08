@@ -66,21 +66,29 @@ public class NewDiscussionActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Message message = new Message(editTextMessage.getText().toString(),true);
+                Message message = new Message("LUNDI 4 MARS 2019", Message.TypeMessage.LineStart);
                 messageList.add(message);
-                Message messager = new Message(editTextMessage.getText().toString(),false);
+                Message messager = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
                 messageList.add(messager);
-                Message message1 = new Message(editTextMessage.getText().toString(),false);
+                Message message9 = new Message("HIER", Message.TypeMessage.Debut);
+                messageList.add(message9);
+                Message messager8 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
+                messageList.add(messager8);
+                Message message1 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
                 messageList.add(message1);
-                Message messager1 = new Message(editTextMessage.getText().toString(),false);
+                Message messager1 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
                 messageList.add(messager1);
-                Message message2 = new Message(editTextMessage.getText().toString(),true);
+                Message message2 = new Message("AUJOURD'HUI", Message.TypeMessage.Debut);
                 messageList.add(message2);
-                Message messager3 = new Message(editTextMessage.getText().toString(),true);
+                Message messager3 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
                 messageList.add(messager3);
-                Message messager4 = new Message(editTextMessage.getText().toString(),false);
+                Message messager4 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
                 messageList.add(messager4);
                 messageAdapter.notifyDataSetChanged();
+
+                if(!isVisible()){
+                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
+                }
             }
         });
 
@@ -135,5 +143,12 @@ public class NewDiscussionActivity extends AppCompatActivity {
         Intent contactIntent = new Intent(Intent.ACTION_PICK,Uri.parse("content://contacts"));
         contactIntent.setType(ContactsContract.CommonDataKinds.Phone.CONTENT_TYPE);
         startActivityForResult(contactIntent, PICK_CONTACT_REQUEST);
+    }
+
+    public boolean isVisible(){
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+        int positionOfLastVisible = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+        int itemCount = recyclerView.getAdapter().getItemCount();
+        return (positionOfLastVisible>=itemCount);
     }
 }

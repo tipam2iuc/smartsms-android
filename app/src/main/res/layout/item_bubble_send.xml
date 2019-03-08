@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="25dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView2"
+        android:id="@+id/circleImageViewUserDisc"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_marginEnd="8dp"
@@ -30,7 +30,7 @@
         android:text="hi man, how are you?"
         android:textColor="#FFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/circleImageView2"
+        app:layout_constraintEnd_toStartOf="@+id/circleImageViewUserDisc"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

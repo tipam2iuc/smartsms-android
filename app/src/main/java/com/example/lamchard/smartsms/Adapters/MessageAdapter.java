@@ -30,10 +30,18 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.CustomVi
 
     @Override
     public int getItemViewType(int position) {
-        if(messagesList.get(position).isMe()){
-            return R.layout.item_bubble_send;
+        if(messagesList.get(position).getType() == Message.TypeMessage.Conversation) {
+            if(messagesList.get(position).isMe()){
+                return R.layout.item_bubble_send;
+            }
+            return R.layout.item_bubble_receve;
+        }else if(messagesList.get(position).getType() == Message.TypeMessage.Debut){
+            return R.layout.item_bubble_start_conversation;
+        }else if(messagesList.get(position).getType() == Message.TypeMessage.LineStart) {
+            return R.layout.line_start_conversation;
+        }else{
+            return R.layout.layout_null;
         }
-        return R.layout.item_bubble_receve;
     }
 
     @NonNull

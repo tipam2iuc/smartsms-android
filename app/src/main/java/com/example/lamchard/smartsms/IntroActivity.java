@@ -103,7 +103,6 @@ public class IntroActivity extends AppCompatActivity {
 
                 if(position == mList.size()-1) {
 
-                    //TODO: show the GETSTARTED Button and hide the indicator and the next button
                     loadLastScreen();
                 }
 
@@ -183,7 +182,6 @@ public class IntroActivity extends AppCompatActivity {
         tabIndicator.setVisibility(View.INVISIBLE);
         btnGetStart.setVisibility(View.VISIBLE);
 
-        //TODO: ADD an animation the getstarted button
         //setup animation
         btnGetStart.setAnimation(btnAnim);
     }
