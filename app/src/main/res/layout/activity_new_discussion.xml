@@ -40,7 +40,7 @@
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
         app:layout_constraintEnd_toStartOf="@+id/imageButton_contact"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_new" />
 
     <ImageButton
@@ -58,10 +58,12 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="#FAFAFA"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+        app:layout_constraintTop_toBottomOf="@+id/divider2"
+        tools:listitem="@layout/item_bubble_send"/>
 
     <EditText
         android:id="@+id/editTextMessage"
@@ -106,5 +108,16 @@
         app:layout_constraintStart_toEndOf="@+id/editText_nameDestinataire"
         app:layout_constraintTop_toTopOf="@+id/divider3"
         app:srcCompat="@drawable/ic_send_black_24dp" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:text="A"
+        android:textColor="#000"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_new" />
 
 </android.support.constraint.ConstraintLayout>

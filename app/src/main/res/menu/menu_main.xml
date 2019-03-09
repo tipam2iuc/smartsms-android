@@ -17,9 +17,10 @@
         android:id="@+id/deconnection_id"/>
 
     <item
-        android:title=""
+        android:title="Recherche"
         android:id="@+id/search_id"
         android:icon="@drawable/ic_search_white_24dp"
-        app:showAsAction="always"></item>
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="android.support.v7.widget.SearchView"></item>
 
 </menu>
