@@ -8,7 +8,7 @@
     android:background="?attr/cardbackground">
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar_new"
+        android:id="@+id/toolbar_conv"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:background="?attr/colorPrimary"
@@ -19,45 +19,6 @@
         app:titleTextAppearance="@style/Toolbar.TitleText"
         app:titleTextColor="#fff"/>
 
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editText_nameDestinataire" />
-
-    <EditText
-        android:id="@+id/editText_nameDestinataire"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/bg_flatedit"
-        android:ems="10"
-        android:hint="Destinataire"
-        android:textColorHint="?attr/textcolorhint"
-        android:inputType="textPersonName"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
-        android:textColor="?attr/textcolorblack"
-        app:layout_constraintEnd_toStartOf="@+id/imageButton_contact"
-        app:layout_constraintStart_toEndOf="@+id/textView"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_new" />
-
-    <ImageButton
-        android:tint="?attr/tintcolor"
-        android:id="@+id/imageButton_contact"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="#00000000"
-        app:layout_constraintBottom_toBottomOf="@+id/editText_nameDestinataire"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/editText_nameDestinataire"
-        app:srcCompat="@drawable/ic_person_black_24dp" />
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recyclerView_conversation"
         android:layout_width="0dp"
@@ -66,25 +27,24 @@
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/divider2"
-        tools:listitem="@layout/item_bubble_send"/>
+        app:layout_constraintTop_toBottomOf="@+id/toolbar_new"
+        tools:listitem="@layout/item_bubble_send" />
 
     <EditText
-        android:textColor="?attr/textcolorblack"
         android:id="@+id/editTextMessage_conversation"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
         android:background="@drawable/bg_flatedit"
         android:ems="10"
         android:hint="Saisir le message"
-        android:textColorHint="?attr/textcolorhint"
         android:inputType="textMultiLine"
         android:maxHeight="80dp"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingRight="20dp"
         android:paddingBottom="10dp"
+        android:textColor="?attr/textcolorblack"
+        android:textColorHint="?attr/textcolorhint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonSendMessage_conversation"
         app:layout_constraintStart_toStartOf="parent" />
@@ -102,24 +62,12 @@
 
     <ImageButton
         android:id="@+id/imageButtonSendMessage_conversation"
-        android:layout_width="0dp"
+        android:layout_width="50dp"
         android:layout_height="0dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editText_nameDestinataire"
         app:layout_constraintTop_toTopOf="@+id/divider3"
         app:srcCompat="@drawable/ic_send_black_24dp" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="A"
-        android:textColor="?attr/textcolorblack"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView_conversation"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar_new" />
 
 </android.support.constraint.ConstraintLayout>

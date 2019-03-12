@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
 import com.example.lamchard.smartsms.Adapters.MessageAdapter;
 import com.example.lamchard.smartsms.Models.Message;
@@ -51,10 +49,10 @@ public class NewDiscussionActivity extends AppCompatActivity {
         this.configureToolbar();
 
         mdestinataire = findViewById(R.id.editText_nameDestinataire);
-        editTextMessage = findViewById(R.id.editTextMessage);
+        editTextMessage = findViewById(R.id.editTextMessage_conversation);
         imageButtonContact = findViewById(R.id.imageButton_contact);
-        imageButtonSendMessafe = findViewById(R.id.imageButtonSendMessage);
-        recyclerView = findViewById(R.id.recyclerView);
+        imageButtonSendMessafe = findViewById(R.id.imageButtonSendMessage_conversation);
+        recyclerView = findViewById(R.id.recyclerView_conversation);
 
         messageList = new ArrayList<>();
         messageAdapter = new MessageAdapter(messageList);
@@ -139,7 +137,7 @@ public class NewDiscussionActivity extends AppCompatActivity {
     private void configureToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_new);
         setSupportActionBar(toolbar);
-        // Get a support ActionBar corresponding to this toolbar and Enable the Up button
+
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
     }
