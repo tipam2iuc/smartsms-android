@@ -8,6 +8,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -37,6 +38,11 @@ public class NewDiscussionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_discussion);
 
@@ -70,7 +76,7 @@ public class NewDiscussionActivity extends AppCompatActivity {
                 messageList.add(message);
                 Message messager = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
                 messageList.add(messager);
-                Message message9 = new Message("HIER", Message.TypeMessage.Debut);
+                Message message9 = new Message("HIER", Message.TypeMessage.LineStart);
                 messageList.add(message9);
                 Message messager8 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
                 messageList.add(messager8);
@@ -78,7 +84,7 @@ public class NewDiscussionActivity extends AppCompatActivity {
                 messageList.add(message1);
                 Message messager1 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
                 messageList.add(messager1);
-                Message message2 = new Message("AUJOURD'HUI", Message.TypeMessage.Debut);
+                Message message2 = new Message("AUJOURD'HUI", Message.TypeMessage.LineStart);
                 messageList.add(message2);
                 Message messager3 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
                 messageList.add(messager3);

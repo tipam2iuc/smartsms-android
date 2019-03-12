@@ -2,11 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto" >
     <item
-        android:title="Profils"
-        android:id="@+id/profils_id"/>
+        android:title="Archivés"
+        android:id="@+id/archive_id"/>
     <item
-    android:title="Paramétre"
+    android:title="Paramètre"
     android:id="@+id/settings_id"/>
+
+    <item
+        android:title="Activer le mode nuit"
+        android:id="@+id/mode_menu_id"/>
 
     <item
         android:title="Notification"

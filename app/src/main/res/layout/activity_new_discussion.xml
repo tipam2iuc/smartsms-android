@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".NewDiscussionActivity">
+    tools:context=".NewDiscussionActivity"
+    android:background="?attr/cardbackground">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar_new"
         android:layout_width="0dp"
         android:layout_height="60dp"
-        android:background="#293b72"
+        android:background="?attr/colorPrimary"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -35,15 +36,18 @@
         android:background="@drawable/bg_flatedit"
         android:ems="10"
         android:hint="Destinataire"
+        android:textColorHint="?attr/textcolorhint"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="10dp"
+        android:textColor="?attr/textcolorblack"
         app:layout_constraintEnd_toStartOf="@+id/imageButton_contact"
         app:layout_constraintStart_toEndOf="@+id/textView"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_new" />
 
     <ImageButton
+        android:tint="?attr/tintcolor"
         android:id="@+id/imageButton_contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -58,7 +62,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="#FAFAFA"
+        android:background="?attr/backgroundcolor"
         app:layout_constraintBottom_toTopOf="@+id/divider3"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -66,6 +70,7 @@
         tools:listitem="@layout/item_bubble_send"/>
 
     <EditText
+        android:textColor="?attr/textcolorblack"
         android:id="@+id/editTextMessage"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -73,6 +78,7 @@
         android:background="@drawable/bg_flatedit"
         android:ems="10"
         android:hint="Saisir le message"
+        android:textColorHint="?attr/textcolorhint"
         android:inputType="textMultiLine"
         android:maxHeight="80dp"
         android:paddingLeft="20dp"
@@ -96,15 +102,11 @@
 
     <ImageButton
         android:id="@+id/imageButtonSendMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton_contact"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editText_nameDestinataire"
         app:layout_constraintTop_toTopOf="@+id/divider3"
         app:srcCompat="@drawable/ic_send_black_24dp" />
@@ -113,9 +115,9 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:text="A"
-        android:textColor="#000"
+        android:textColor="?attr/textcolorblack"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbar_new" />

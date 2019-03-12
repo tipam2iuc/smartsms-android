@@ -6,6 +6,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -30,6 +31,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -45,12 +52,16 @@ public class MainActivity extends AppCompatActivity {
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(getSupportFragmentManager());
         //Add fragments
-        adapter.AddFragment(new FragmentDiscussion(), "DISCUSSION");
-        adapter.AddFragment(new FragmentDiffusion(), "DIFFUSION");
-        adapter.AddFragment(new FragmentContacts(), "CONTACTS");
+        adapter.AddFragment(new FragmentDiscussion(), "");
+        adapter.AddFragment(new FragmentDiffusion(), "");
+        adapter.AddFragment(new FragmentContacts(), "");
 
         viewPager.setAdapter(adapter);
         tabLayout.setupWithViewPager(viewPager);
+
+        tabLayout.getTabAt(0).setIcon(R.drawable.ic_message);
+        tabLayout.getTabAt(1).setIcon(R.drawable.ic_group);
+        tabLayout.getTabAt(2).setIcon(R.drawable.ic_call);
 
         //FloatingActionButton
         btn_addNewMessage = (FloatingActionButton)findViewById(R.id.floatingAdd);
@@ -95,8 +106,13 @@ public class MainActivity extends AppCompatActivity {
         switch (id)
         {
             case R.id.settings_id:
-                Toast.makeText(this, "Settings Clicked", Toast.LENGTH_SHORT).show();
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                restartApp();
                 break;
+            case R.id.mode_menu_id:
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                restartApp();
+            break;
             case R.id.deconnection_id:
                 FirebaseAuth.getInstance().signOut();
                 Intent loginActivity = new Intent(getApplicationContext(), LoginActivity.class);
@@ -106,5 +122,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void restartApp() {
+        Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+        startActivity(intent);
+        finish();
     }
 }
