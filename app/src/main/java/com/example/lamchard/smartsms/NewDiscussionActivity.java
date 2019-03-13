@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +14,9 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.example.lamchard.smartsms.Adapters.MessageAdapter;
-import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.adapters.MessageAdapter;
+import com.example.lamchard.smartsms.models.Message;
 
 import java.util.ArrayList;
 import java.util.List;

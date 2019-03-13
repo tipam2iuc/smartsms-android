@@ -10,15 +10,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.lamchard.smartsms.Adapters.DiscussionAdapter;
-import com.example.lamchard.smartsms.Adapters.MessageAdapter;
-import com.example.lamchard.smartsms.Models.Discussion;
-import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.adapters.DiscussionAdapter;
+import com.example.lamchard.smartsms.models.Discussion;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class FragmentDiscussion extends Fragment {
+
+    private static final int PERMISSIONS_REQUESR_READ_CONTACTS = 100;
 
     private View view;
     private RecyclerView recyclerView;
@@ -36,28 +36,31 @@ public class FragmentDiscussion extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerViewDiscussion);
         discussionList = new ArrayList<>();
 
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
-
+        testSimulationDisc();
         discussionAdapter = new DiscussionAdapter(discussionList);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(discussionAdapter);
 
         return view;
+    }
+
+    private void testSimulationDisc(){
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
+        discussionList.add(new Discussion("Kouayip yves","Bonsoir gar l'apk est disponible ..?","9:30"));
     }
 }
