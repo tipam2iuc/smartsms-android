@@ -96,15 +96,11 @@
 
     <ImageButton
         android:id="@+id/imageButtonSendMessage"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="#00000000"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageButton_contact"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/editText_nameDestinataire"
         app:layout_constraintTop_toTopOf="@+id/divider3"
         app:srcCompat="@drawable/ic_send_black_24dp" />
@@ -113,7 +109,7 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginStart="16dp"
         android:text="A"
         android:textColor="#000"
         app:layout_constraintBottom_toTopOf="@+id/recyclerView"

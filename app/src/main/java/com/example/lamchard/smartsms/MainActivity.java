@@ -7,11 +7,13 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -26,8 +28,13 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.lamchard.smartsms.adapters.ViewPagerAdapter;
+import com.example.lamchard.smartsms.models.Discussion;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 2;
     private static final String TAG = MainActivity.class.getSimpleName();
 
+
     //Firebase
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
@@ -52,6 +60,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // lis of discussions
+        listOfDiscussion();
+
 
         //Initialisation des composants
         btn_addNewMessage = (FloatingActionButton)findViewById(R.id.floatingAdd);
@@ -95,11 +107,6 @@ public class MainActivity extends AppCompatActivity {
         //checkForSmsPermission();
         checkForPhonePermission();
 
-        final String myPackageName = getPackageName();
-        // set appli as default if is not
-        if (!Telephony.Sms.getDefaultSmsPackage(MainActivity.this).equals(myPackageName)) {
-            setAsDefaultAppli();
-        }
     }
 
     @Override
@@ -185,61 +192,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkForSmsPermission() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS) !=
-                PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "permission_not_granted");
-            // Permission not yet granted. Use requestPermissions().
-            // MY_PERMISSIONS_REQUEST_SEND_SMS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.SEND_SMS},
-                    MY_PERMISSIONS_REQUEST_SEND_SMS);
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_SMS);
+
+        if (permissionCheck == PackageManager.PERMISSION_GRANTED) {
+            //showContacts();
         } else {
-            // Permission already granted. Enable the SMS button.
-            //enableSmsButton();
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_SMS},
+                    MY_PERMISSIONS_REQUEST_SEND_SMS);
         }
     }
 
     private void checkForPhonePermission() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.CALL_PHONE) !=
-                PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "PERMISSION NOT GRANTED!");
+        int permissionCheck = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CALL_PHONE);
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED)
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CALL_PHONE},
                     MY_PERMISSIONS_REQUEST_CALL_PHONE);
-        } else {
-            // Permission already granted. Enable the call button.
-            //enableCallButton();
-        }
-    }
-
-    private void setAsDefaultAppli(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        final String myPackageName = getPackageName();
-        builder.setTitle("SmartSMS")
-                .setMessage("Definir comme application par defaut ? ")
-                .setPositiveButton("OUI", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                            // Show the "not currently set as the default SMS app" interface
-                            Intent intent =
-                                    new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
-                            intent.putExtra(Telephony.Sms.Intents.EXTRA_PACKAGE_NAME,
-                                    myPackageName);
-                            startActivity(intent);
-                    }
-                })
-                .setNegativeButton("NON", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
-                })
-                .create()
-                .show();
     }
 
     private void enableCallButton() {
@@ -260,4 +232,32 @@ public class MainActivity extends AppCompatActivity {
         button_dialog_call.setEnabled(false);
     }
 
+
+    //
+    private void listOfDiscussion(){
+
+        FragmentDiscussion.discussions = new ArrayList<>();
+        String varSearch = "693176070";
+        String searchQuery = "address like '%" + varSearch + "%'";
+
+        try {
+            Cursor cursor = getContentResolver()
+                    .query(Telephony.Sms.Inbox.CONTENT_URI, new String[]{"address","body","date"}, searchQuery, null, "date DESC");
+
+            while (cursor.moveToNext()) {
+                String number = cursor.getString(cursor.getColumnIndexOrThrow("address")).toString();
+                String body = cursor.getString(cursor.getColumnIndexOrThrow("body")).toString();
+                String date = cursor.getString(cursor.getColumnIndexOrThrow("date")).toString();
+
+                // date formating
+//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+//                date = formatter.parse(date.toString()).toString();
+
+                FragmentDiscussion.discussions.add(new Discussion(number, body, date));
+            }
+            cursor.close();
+        }catch (Exception e){
+            e.getMessage();
+        }
+    }
 }
