@@ -11,7 +11,12 @@ import android.widget.Toast;
 
 import com.example.lamchard.smartsms.FragmentDiscussion;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 public class SmsManagers {
@@ -70,5 +75,16 @@ public class SmsManagers {
         }catch (Exception e){
             e.getMessage();
         }
+    }
+
+    public  static String timeMillisToDate(String timeMillis){
+        DateFormat df = new SimpleDateFormat("dd/MM/yyyy HH:mm");
+        Date date = new Date(Long.parseLong(timeMillis));
+        return df.format(date);
+    }
+
+    public static long getCurrentTimeMillis(Date date){
+
+        return date.getTime();
     }
 }

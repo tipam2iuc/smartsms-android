@@ -8,6 +8,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
+import android.net.Uri;
 import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
@@ -29,11 +30,13 @@ import android.widget.Toast;
 
 import com.example.lamchard.smartsms.adapters.ViewPagerAdapter;
 import com.example.lamchard.smartsms.models.Discussion;
+import com.example.lamchard.smartsms.models.SmsManagers;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -62,11 +65,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // lis of discussions
-        listOfDiscussion();
+        getSMSCOnversationlist("658197933");
 
 
         //Initialisation des composants
-        btn_addNewMessage = (FloatingActionButton)findViewById(R.id.floatingAdd);
+        btn_addNewMessage = findViewById(R.id.floatingAdd);
         button_dialog_call = findViewById(R.id.dialog_btn_call);
         button_dialog_mesage = findViewById(R.id.dialog_btn_message);
         imageButtonSendMessage = findViewById(R.id.imageButtonSendMessage);
@@ -259,5 +262,21 @@ public class MainActivity extends AppCompatActivity {
         }catch (Exception e){
             e.getMessage();
         }
+    }
+
+    private void getSMSCOnversationlist(String number) {
+        FragmentDiscussion.discussions = new ArrayList<>();
+        String searchQuery = "address like '%" + number + "%'";
+        //Uri SMS_INBOX = Uri.parse(Telephony.Sms.Conversations.CONTENT_URI.toString());
+        Cursor c = getContentResolver().query(Telephony.Sms.CONTENT_URI,null,searchQuery, null, "date desc");
+
+
+        while(c.moveToNext()){
+            String count = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS)).toString();
+            String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY)).toString();
+            String snippet = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.DATE)).toString();
+            FragmentDiscussion.discussions.add(new Discussion(count, body, SmsManagers.timeMillisToDate(snippet)));
+        }
+        c.close();
     }
 }

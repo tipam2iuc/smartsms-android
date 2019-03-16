@@ -2,7 +2,9 @@ package com.example.lamchard.smartsms;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Typeface;
+import android.net.Uri;
 import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
@@ -72,6 +74,8 @@ public class LoginActivity extends AppCompatActivity {
         mDialog.setMessage("Veuillez patienter SVP...");
 
         mAuth = FirebaseAuth.getInstance();
+
+        //getSMSCOnversationlist();
 
         //set fonts
         typefaceOpenSans = Typeface.createFromAsset(getAssets(),"fonts/OpenSans-Regular.ttf");
@@ -243,5 +247,27 @@ public class LoginActivity extends AppCompatActivity {
     private void signIn() {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+
+    private void getSMSCOnversationlist() {
+        Uri SMS_INBOX = Uri.parse("content://sms/conversations/");
+        Cursor c = getContentResolver().query(SMS_INBOX, null,null, null, "date desc");
+
+        String[] count = new String[c.getCount()];
+        String[] snippet = new String[c.getCount()];
+        String[] thread_id = new String[c.getCount()];
+
+
+        c.moveToFirst();
+        for (int i = 0; i < c.getCount(); i++) {
+
+            count[i] = c.getString(c.getColumnIndexOrThrow("msg_count")).toString();
+            thread_id[i] = c.getString(c.getColumnIndexOrThrow("thread_id")).toString();
+            snippet[i] = c.getString(c.getColumnIndexOrThrow("snippet")).toString();
+            Toast.makeText(this, count[i] + " - " + thread_id[i] + " - " + snippet[i]+ " - " , Toast.LENGTH_LONG).show();
+            c.moveToNext();
+
+        }
+        c.close();
     }
 }
