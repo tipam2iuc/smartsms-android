@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:padding="8dp"
-    android:background="#fff"
+    android:background="?attr/cardbackground"
     android:layout_marginTop="8dp"
     android:id="@+id/contact_item_id">
 
@@ -23,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"
-            android:textColor="#000"
+            android:textColor="?attr/textcolorblack"
             android:text="Contact Name"
             android:id="@+id/name_contact"/>
 
@@ -31,6 +31,7 @@
             android:layout_marginTop="4dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textColor="?attr/colorAccent"
             android:text="Phone Number here"
             android:id="@+id/phone_contact"/>
 
@@ -45,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_call"
-            android:tint="#000"/>
+            android:tint="?attr/tintcolor"/>
 
     </LinearLayout>
 

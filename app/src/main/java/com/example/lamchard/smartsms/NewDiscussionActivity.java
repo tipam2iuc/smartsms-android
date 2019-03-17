@@ -11,6 +11,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -48,6 +49,11 @@ public class NewDiscussionActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
+            setTheme(R.style.darktheme);
+        }
+        else setTheme(R.style.AppTheme);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_discussion);
 
@@ -56,10 +62,10 @@ public class NewDiscussionActivity extends AppCompatActivity {
         this.configureToolbar();
 
         mdestinataire = findViewById(R.id.editText_nameDestinataire);
-        editTextMessage = findViewById(R.id.editTextMessage);
+        editTextMessage = findViewById(R.id.editTextMessage_conversation);
         imageButtonContact = findViewById(R.id.imageButton_contact);
-        imageButtonSendMessafe = findViewById(R.id.imageButtonSendMessage);
-        recyclerView = findViewById(R.id.recyclerView);
+        imageButtonSendMessafe = findViewById(R.id.imageButtonSendMessage_conversation);
+        recyclerView = findViewById(R.id.recyclerView_conversation);
 
         messageList = new ArrayList<>();
         messageAdapter = new MessageAdapter(messageList);
@@ -85,35 +91,6 @@ public class NewDiscussionActivity extends AppCompatActivity {
                 }
             }
         });
-//imageButtonSendMessafe.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//                Message message = new Message("LUNDI 4 MARS 2019", Message.TypeMessage.LineStart);
-//                messageList.add(message);
-//                Message messager = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-//                messageList.add(messager);
-//                Message message9 = new Message("HIER", Message.TypeMessage.Debut);
-//                messageList.add(message9);
-//                Message messager8 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-//                messageList.add(messager8);
-//                Message message1 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
-//                messageList.add(message1);
-//                Message messager1 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-//                messageList.add(messager1);
-//                Message message2 = new Message("AUJOURD'HUI", Message.TypeMessage.Debut);
-//                messageList.add(message2);
-//                Message messager3 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
-//                messageList.add(messager3);
-//                Message messager4 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-//                messageList.add(messager4);
-//                messageAdapter.notifyDataSetChanged();
-//
-//                if(!isVisible()){
-//                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
-//                }
-//            }
-//        });
 
     }
 
@@ -191,7 +168,7 @@ public class NewDiscussionActivity extends AppCompatActivity {
     private void configureToolbar(){
         toolbar = (Toolbar)findViewById(R.id.toolbar_new);
         setSupportActionBar(toolbar);
-        // Get a support ActionBar corresponding to this toolbar and Enable the Up button
+
         ActionBar ab = getSupportActionBar();
         ab.setDisplayHomeAsUpEnabled(true);
     }

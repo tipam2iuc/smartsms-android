@@ -9,7 +9,7 @@
         android:layout_marginTop="50dp"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:background="#293b72"
+        android:background="?attr/colorPrimary"
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
@@ -43,7 +43,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
-            android:text="Mobile Call"
+            android:text="appeler"
             android:layout_marginTop="10dp"/>
         <Button
             android:id="@+id/dialog_btn_message"
@@ -55,7 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#fff"
-            android:text="Mobile Call"
+            android:text="message"
             />
 
     </LinearLayout>

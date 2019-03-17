@@ -1,11 +1,42 @@
 <resources>
 
-    <!-- Base application theme. -->
+    <!-- Light/Day application theme. -->
+    <style name="darktheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#212121</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#FAFAFA</item>
+        <item name="backgroundcolor">#2b2b2b</item>
+        <item name="cardbackground">#424242</item>
+        <item name="textcolor">#FFFFFF</item>
+        <item name="textcolorblack">#ffffff</item>
+        <item name="textcolorhint">#ffffff</item>
+        <item name="tintcolor">#FFFFFF</item>
+        <item name="buttoncolor">#393939</item>
+        <item name="buttoncolorsend">#FFFFFF</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
+    <!-- Light/Day application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">#293b72</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="backgroundcolor">#FAFAFA</item>
+        <item name="cardbackground">#FFFFFF</item>
+        <item name="textcolor">#FFFFFF</item>
+        <item name="textcolorblack">#000000</item>
+        <item name="textcolorhint">#656565</item>
+        <item name="tintcolor">#000000</item>
+        <item name="buttoncolor">#293b72</item>
+        <item name="buttoncolorsend">#293b72</item>
+        <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
+    </style>
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
