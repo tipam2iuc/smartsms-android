@@ -1,6 +1,7 @@
 package com.example.lamchard.smartsms;
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -26,6 +27,7 @@ import android.widget.Toast;
 
 import com.example.lamchard.smartsms.adapters.MessageAdapter;
 import com.example.lamchard.smartsms.models.Message;
+import com.example.lamchard.smartsms.models.Permission;
 import com.example.lamchard.smartsms.models.SmsManagers;
 
 import java.util.ArrayList;
@@ -47,6 +49,10 @@ public class NewDiscussionActivity extends AppCompatActivity {
     private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 3;
     private static final String TAG = NewDiscussionActivity.class.getSimpleName();
 
+    // tools
+    SmsManagers manager;
+    private Permission permission;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         if(AppCompatDelegate.getDefaultNightMode() == AppCompatDelegate.MODE_NIGHT_YES){
@@ -56,6 +62,9 @@ public class NewDiscussionActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_discussion);
+
+        manager = new SmsManagers(this);
+        permission = new Permission(this,this);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar_new);
         setSupportActionBar(toolbar);
@@ -84,14 +93,16 @@ public class NewDiscussionActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if(!TextUtils.isEmpty(mdestinataire.getText().toString()) &&
                         !TextUtils.isEmpty(editTextMessage.getText().toString())) {
-                    checkForSmsPermission();
+                    permission.checkForSmsPermission(editTextMessage.getText().toString(),
+                            mdestinataire.getText().toString());
                 }else {
-                    Toast.makeText(NewDiscussionActivity.this,"veuillez specifier le destinataire et un message svp!!!",
-                            Toast.LENGTH_LONG).show();
+                    Toast.makeText(NewDiscussionActivity.this,
+                            "veuillez specifier le destinataire et un message svp!!!",Toast.LENGTH_LONG).show();
                 }
+                // clean edittext
+                editTextMessage.setText("");
             }
         });
-
     }
 
     @Override
@@ -133,7 +144,7 @@ public class NewDiscussionActivity extends AppCompatActivity {
                         (Manifest.permission.CALL_PHONE)
                         && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED) {
-                    callNumber();
+                    permission.checkForPhonePermission(mdestinataire.getText().toString());
                 } else {
                     // Permission denied.
                     Log.d(TAG, "Failure to obtain permission!");
@@ -147,8 +158,8 @@ public class NewDiscussionActivity extends AppCompatActivity {
                         (Manifest.permission.SEND_SMS)
                         && grantResults[0] ==
                         PackageManager.PERMISSION_GRANTED) {
-                    Toast.makeText(this,"permission granted",
-                            Toast.LENGTH_LONG).show();
+                    permission.checkForSmsPermission(editTextMessage.getText().toString(),
+                            mdestinataire.getText().toString());
                 } else {
                     // Permission denied.
                     Log.d(TAG, "failure_permission");
@@ -187,86 +198,4 @@ public class NewDiscussionActivity extends AppCompatActivity {
         return (positionOfLastVisible>=itemCount);
     }
 
-    private void SendMessage(String phoneNumber, String message) {
-
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage(phoneNumber, null, message, null, null);
-        Toast.makeText(getApplicationContext(), "SMS sent.",
-                Toast.LENGTH_LONG).show();
-
-        String date = java.text.DateFormat.getDateTimeInstance().format(Calendar
-                .getInstance().getTime());
-        Message messageTime = new Message(date, Message.TypeMessage.LineStart);
-        messageList.add(messageTime);
-        Message message2 = new Message(editTextMessage.getText().toString(), false, Message.TypeMessage.Conversation);
-        messageList.add(message2);
-        messageAdapter.notifyDataSetChanged();
-
-        // clean message
-        editTextMessage.setText("");
-
-        if (!isVisible()) {
-            recyclerView.smoothScrollToPosition(messageAdapter.getItemCount() - 1);
-        }
-
-        // store message
-        SmsManagers manager = new SmsManagers(this);
-        manager.addSmsToSenddBox(editTextMessage.getText().toString(),mdestinataire.getText().toString());
-    }
-
-    private void checkForSmsPermission() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.SEND_SMS) !=
-                PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "permission_not_granted");
-            // Permission not yet granted. Use requestPermissions().
-            // MY_PERMISSIONS_REQUEST_SEND_SMS is an
-            // app-defined int constant. The callback method gets the
-            // result of the request.
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.SEND_SMS},
-                    MY_PERMISSIONS_REQUEST_SEND_SMS);
-        } else {
-            // Permission already granted. Enable the SMS button.
-            //enableSmsButton();
-            SendMessage(mdestinataire.getText().toString(), editTextMessage
-                    .getText().toString());
-        }
-    }
-
-    public void callNumber() {
-
-        String phoneNumber = String.format("tel: %s",
-                mdestinataire.getText().toString());
-        // Log the concatenated phone number for dialing.
-        Log.d(TAG, "Dialing : " + phoneNumber);
-        Toast.makeText(this,
-                "Dialing : " + phoneNumber,
-                Toast.LENGTH_LONG).show();
-        // Create the intent.
-        Intent callIntent = new Intent(Intent.ACTION_CALL);
-        // Set the data for the intent as the phone number.
-        callIntent.setData(Uri.parse(phoneNumber));
-        // If package resolves to an app, send intent.
-        if (callIntent.resolveActivity(getPackageManager()) != null) {
-            startActivity(callIntent);
-        } else {
-            Log.e(TAG, "Can't resolve app for ACTION_CALL Intent.");
-        }
-    }
-
-    private void checkForPhonePermission() {
-        if (ActivityCompat.checkSelfPermission(this,
-                Manifest.permission.CALL_PHONE) !=
-                PackageManager.PERMISSION_GRANTED) {
-            Log.d(TAG, "PERMISSION NOT GRANTED!");
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CALL_PHONE},
-                    MY_PERMISSIONS_REQUEST_CALL_PHONE);
-        } else {
-            // Permission already granted. Enable the call button.
-            //enableCallButton();
-            callNumber();
-        }
-    }
 }

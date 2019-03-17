@@ -60,6 +60,9 @@ public class MainActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseUser mCurrentUser;
 
+    // tools
+    SmsManagers manager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -71,15 +74,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        manager = new SmsManagers(this);
+
         // lis of discussions
-        getSMSCOnversationlist("658197933");
+        manager.getSMSCOnversationlist();
 
 
         //Initialisation des composants
         btn_addNewMessage = findViewById(R.id.floatingAdd);
         button_dialog_call = findViewById(R.id.dialog_btn_call);
         button_dialog_mesage = findViewById(R.id.dialog_btn_message);
-        imageButtonSendMessage = findViewById(R.id.imageButtonSendMessage);
+        imageButtonSendMessage = findViewById(R.id.imageButtonSendMessage_conversation);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -239,68 +244,5 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this,
                     new String[]{Manifest.permission.CALL_PHONE},
                     MY_PERMISSIONS_REQUEST_CALL_PHONE);
-    }
-
-    private void enableCallButton() {
-        button_dialog_call.setEnabled(true);
-    }
-
-    private void enableSmsButton() {
-        button_dialog_mesage.setEnabled(true);
-        imageButtonSendMessage.setEnabled(true);
-    }
-
-    private void disableSmsButton() {
-        button_dialog_mesage.setEnabled(false);
-        imageButtonSendMessage.setEnabled(false);
-    }
-
-    private void disableCallButton() {
-        button_dialog_call.setEnabled(false);
-    }
-
-
-    //
-    private void listOfDiscussion(){
-
-        FragmentDiscussion.discussions = new ArrayList<>();
-        String varSearch = "693176070";
-        String searchQuery = "address like '%" + varSearch + "%'";
-
-        try {
-            Cursor cursor = getContentResolver()
-                    .query(Telephony.Sms.Inbox.CONTENT_URI, new String[]{"address","body","date"}, searchQuery, null, "date DESC");
-
-            while (cursor.moveToNext()) {
-                String number = cursor.getString(cursor.getColumnIndexOrThrow("address")).toString();
-                String body = cursor.getString(cursor.getColumnIndexOrThrow("body")).toString();
-                String date = cursor.getString(cursor.getColumnIndexOrThrow("date")).toString();
-
-                // date formating
-//                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-//                date = formatter.parse(date.toString()).toString();
-
-                FragmentDiscussion.discussions.add(new Discussion(number, body, date));
-            }
-            cursor.close();
-        }catch (Exception e){
-            e.getMessage();
-        }
-    }
-
-    private void getSMSCOnversationlist(String number) {
-        FragmentDiscussion.discussions = new ArrayList<>();
-        String searchQuery = "address like '%" + number + "%'";
-        //Uri SMS_INBOX = Uri.parse(Telephony.Sms.Conversations.CONTENT_URI.toString());
-        Cursor c = getContentResolver().query(Telephony.Sms.CONTENT_URI,null,searchQuery, null, "date desc");
-
-
-        while(c.moveToNext()){
-            String count = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS)).toString();
-            String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY)).toString();
-            String snippet = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.DATE)).toString();
-            FragmentDiscussion.discussions.add(new Discussion(count, body, SmsManagers.timeMillisToDate(snippet)));
-        }
-        c.close();
     }
 }

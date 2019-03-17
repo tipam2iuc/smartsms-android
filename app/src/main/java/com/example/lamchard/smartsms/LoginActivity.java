@@ -161,7 +161,7 @@ public class LoginActivity extends AppCompatActivity {
     private void updateUI() {
         final  String myPackageName = getPackageName();
         mDialog.dismiss();
-        // set appli as default before use
+        // set appli as default before start
         if (!Telephony.Sms.getDefaultSmsPackage(this).equals(myPackageName)) {
             Intent intent =
                     new Intent(Telephony.Sms.Intents.ACTION_CHANGE_DEFAULT);
