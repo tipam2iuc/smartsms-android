@@ -75,11 +75,11 @@ public class IntroActivity extends AppCompatActivity {
 
         //fill list screenPager
         final List<ScreenItem> mList = new ArrayList<>();
-        mList.add(new ScreenItem("SmartSMS","Souvent on s'est dit, vu la musique qu'il propose ( jugé par beaucoup moins bonne qu'a ses débuts ) et la poussé de la nouvelle génération, c'est bientôt la fin pour lui, mais non album après album toujours la même effervescence et je dirai même hystérie autour de lui.",R.drawable.hello));
-        mList.add(new ScreenItem("Communauté","Souvent on s'est dit, vu la musique qu'il propose ( jugé par beaucoup moins bonne qu'a ses débuts ) et la poussé de la nouvelle génération, c'est bientôt la fin pour lui, mais non album après album toujours la même effervescence et je dirai même hystérie autour de lui.",R.drawable.commuvity));
-        mList.add(new ScreenItem("Promotion","Souvent on s'est dit, vu la musique qu'il propose ( jugé par beaucoup moins bonne qu'a ses débuts ) et la poussé de la nouvelle génération, c'est bientôt la fin pour lui, mais non album après album toujours la même effervescence et je dirai même hystérie autour de lui.",R.drawable.promotion));
-        mList.add(new ScreenItem("Service","Souvent on s'est dit, vu la musique qu'il propose ( jugé par beaucoup moins bonne qu'a ses débuts ) et la poussé de la nouvelle génération, c'est bientôt la fin pour lui, mais non album après album toujours la même effervescence et je dirai même hystérie autour de lui.",R.drawable.service_commication));
-        mList.add(new ScreenItem("Campagne","Souvent on s'est dit, vu la musique qu'il propose ( jugé par beaucoup moins bonne qu'a ses débuts ) et la poussé de la nouvelle génération, c'est bientôt la fin pour lui, mais non album après album toujours la même effervescence et je dirai même hystérie autour de lui.",R.drawable.campagne));
+        mList.add(new ScreenItem("SmartSMS","Bienvenue sur smartSMS votre plateforme d'échange de SMS entre amis colègues & familles",R.drawable.hello));
+        mList.add(new ScreenItem("Communauté","Créer votre espace de communication a travers des groupes pour des envois groupés",R.drawable.commuvity));
+       // mList.add(new ScreenItem("Promotion","Souvent on s'est dit, vu la musique qu'il propose ( jugé par beaucoup moins bonne qu'a ses débuts ) et la poussé de la nouvelle génération, c'est bientôt la fin pour lui, mais non album après album toujours la même effervescence et je dirai même hystérie autour de lui.",R.drawable.promotion));
+        mList.add(new ScreenItem("Service","Vous devez définir SmartSMS comme application de messagerie par défaut pour bénéficier de toutes les fonctionnalités de cette application.",R.drawable.service_commication));
+        mList.add(new ScreenItem("Campagne","Utiliser la fonctionnalitée d'envois automatique pour gérer vos campagnes publicitaires.",R.drawable.campagne));
 
         //setup viewpage
         screenPager = findViewById(R.id.screen_piewager);
