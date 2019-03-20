@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.Adapters;
+package com.example.lamchard.smartsms.adapters;
 
 import android.content.Context;
 import android.graphics.Typeface;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.lamchard.smartsms.Models.ScreenItem;
+import com.example.lamchard.smartsms.models.ScreenItem;
 import com.example.lamchard.smartsms.R;
 
 import java.util.List;

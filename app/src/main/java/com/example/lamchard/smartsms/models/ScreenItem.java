@@ -1,8 +1,8 @@
-package com.example.lamchard.smartsms.Models;
+package com.example.lamchard.smartsms.models;
 
 public class ScreenItem {
 
-    String Title, Description;
+    private String Title, Description;
     int ScreenImg;
 
     public ScreenItem(String title, String description, int screenImg) {

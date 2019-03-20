@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.Adapters;
+package com.example.lamchard.smartsms.adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,8 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.example.lamchard.smartsms.Models.Discussion;
-import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.models.Discussion;
 import com.example.lamchard.smartsms.R;
 
 import java.util.List;

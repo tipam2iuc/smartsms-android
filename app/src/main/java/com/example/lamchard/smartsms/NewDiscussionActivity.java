@@ -1,9 +1,14 @@
 package com.example.lamchard.smartsms;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.ContactsContract;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,15 +16,22 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.telephony.SmsManager;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
-import com.example.lamchard.smartsms.Adapters.MessageAdapter;
-import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.adapters.MessageAdapter;
+import com.example.lamchard.smartsms.models.Message;
+import com.example.lamchard.smartsms.models.Permission;
+import com.example.lamchard.smartsms.models.SmsManagers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class NewDiscussionActivity extends AppCompatActivity {
@@ -33,6 +45,13 @@ public class NewDiscussionActivity extends AppCompatActivity {
     private MessageAdapter messageAdapter;
     private List<Message> messageList;
     static final int PICK_CONTACT_REQUEST = 1;
+    private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
+    private static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 3;
+    private static final String TAG = NewDiscussionActivity.class.getSimpleName();
+
+    // tools
+    SmsManagers manager;
+    private Permission permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +62,9 @@ public class NewDiscussionActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_discussion);
+
+        manager = new SmsManagers(this);
+        permission = new Permission(this,this);
 
         toolbar = (Toolbar)findViewById(R.id.toolbar_new);
         setSupportActionBar(toolbar);
@@ -69,33 +91,18 @@ public class NewDiscussionActivity extends AppCompatActivity {
         imageButtonSendMessafe.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Message message = new Message("LUNDI 4 MARS 2019", Message.TypeMessage.LineStart);
-                messageList.add(message);
-                Message messager = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-                messageList.add(messager);
-                Message message9 = new Message("HIER", Message.TypeMessage.LineStart);
-                messageList.add(message9);
-                Message messager8 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-                messageList.add(messager8);
-                Message message1 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
-                messageList.add(message1);
-                Message messager1 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-                messageList.add(messager1);
-                Message message2 = new Message("AUJOURD'HUI", Message.TypeMessage.LineStart);
-                messageList.add(message2);
-                Message messager3 = new Message(editTextMessage.getText().toString(),true, Message.TypeMessage.Conversation);
-                messageList.add(messager3);
-                Message messager4 = new Message(editTextMessage.getText().toString(),false, Message.TypeMessage.Conversation);
-                messageList.add(messager4);
-                messageAdapter.notifyDataSetChanged();
-
-                if(!isVisible()){
-                    recyclerView.smoothScrollToPosition(messageAdapter.getItemCount()-1);
+                if(!TextUtils.isEmpty(mdestinataire.getText().toString()) &&
+                        !TextUtils.isEmpty(editTextMessage.getText().toString())) {
+                    permission.checkForSmsPermission(editTextMessage.getText().toString(),
+                            mdestinataire.getText().toString());
+                }else {
+                    Toast.makeText(NewDiscussionActivity.this,
+                            "veuillez specifier le destinataire et un message svp!!!",Toast.LENGTH_LONG).show();
                 }
+                // clean edittext
+                editTextMessage.setText("");
             }
         });
-
     }
 
     @Override
@@ -129,6 +136,41 @@ public class NewDiscussionActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        // Check if permission is granted or not for the request.
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_CALL_PHONE: {
+                if (permissions[0].equalsIgnoreCase
+                        (Manifest.permission.CALL_PHONE)
+                        && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    permission.checkForPhonePermission(mdestinataire.getText().toString());
+                } else {
+                    // Permission denied.
+                    Log.d(TAG, "Failure to obtain permission!");
+                    Toast.makeText(this,
+                            "Failure to obtain permission!",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (permissions[0].equalsIgnoreCase
+                        (Manifest.permission.SEND_SMS)
+                        && grantResults[0] ==
+                        PackageManager.PERMISSION_GRANTED) {
+                    permission.checkForSmsPermission(editTextMessage.getText().toString(),
+                            mdestinataire.getText().toString());
+                } else {
+                    // Permission denied.
+                    Log.d(TAG, "failure_permission");
+                    Toast.makeText(this,"failure_permission",
+                            Toast.LENGTH_LONG).show();
+                }
+            }
+        }
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_disc, menu);
         return true;
@@ -155,4 +197,5 @@ public class NewDiscussionActivity extends AppCompatActivity {
         int itemCount = recyclerView.getAdapter().getItemCount();
         return (positionOfLastVisible>=itemCount);
     }
+
 }

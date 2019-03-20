@@ -4,7 +4,11 @@ import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.ContentResolver;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Telephony;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,15 +16,16 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.lamchard.smartsms.Adapters.DiscussionAdapter;
-import com.example.lamchard.smartsms.Adapters.MessageAdapter;
-import com.example.lamchard.smartsms.Models.Discussion;
-import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.adapters.DiscussionAdapter;
+import com.example.lamchard.smartsms.models.Discussion;
+import com.example.lamchard.smartsms.models.Message;
+import com.example.lamchard.smartsms.models.SmsManagers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,12 +34,15 @@ import static android.app.Activity.RESULT_OK;
 
 public class FragmentDiscussion extends Fragment {
 
+    private static final int PERMISSIONS_REQUESR_READ_CONTACTS = 100;
+
     private static final int CONVERSATION_REQUEST = 2;
 
     private View view;
     private RecyclerView recyclerView;
-    private DiscussionAdapter discussionAdapter;
-    private List<Discussion> discussionList;
+    public static DiscussionAdapter discussionAdapter;
+
+    public static List<Discussion> discussions;
 
     public FragmentDiscussion() {
     }
@@ -45,12 +53,9 @@ public class FragmentDiscussion extends Fragment {
         view = inflater.inflate(R.layout.discussion_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerViewDiscussion);
-        discussionList = new ArrayList<>();
 
-        testSimulationDisc();
-
-        discussionAdapter = new DiscussionAdapter(discussionList);
-        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL, false));
+        discussionAdapter = new DiscussionAdapter(discussions);
+        recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(discussionAdapter);
 
         discussionAdapter.setOnItemClickListener(new DiscussionAdapter.OnItemClickListener() {
@@ -74,25 +79,5 @@ public class FragmentDiscussion extends Fragment {
         if (requestCode == CONVERSATION_REQUEST && resultCode == RESULT_OK) {
             Toast.makeText(getContext(), "Message", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private void testSimulationDisc() {
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Amanda kams", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Sandy", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Leati", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Mum", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
-        discussionList.add(new Discussion("Kouayip yves", "655396973", "Bonsoir gar l'apk est disponible ..?", "9:30"));
     }
 }

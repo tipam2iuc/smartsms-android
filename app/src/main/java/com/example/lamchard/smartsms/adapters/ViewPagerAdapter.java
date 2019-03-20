@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.Adapters;
+package com.example.lamchard.smartsms.adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
