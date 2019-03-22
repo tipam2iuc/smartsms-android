@@ -97,6 +97,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.CustomVi
 
     public void addMessageList(List<Discussion> discussions){
 
+        //boolean isopen;
         for(Discussion discussion: discussions){
             if(discussion != null && messagesList != null){
 
@@ -108,11 +109,34 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.CustomVi
                     isMe = false;
                 }
 
-                Log.i("INFOTYPE",isMe == true ? "true" : "false");
-
                 verificationOfType(discussion.getDate(), discussion.getTime());
 
-                this.messagesList.add(new Message(discussion.getMessage(), isMe, Message.TypeMessage.Conversation,discussion.getTime(),discussion.getDate()));
+
+                Message.TypeMessage typeMessage;
+
+                if(this.messagesList.size() != 0 ){
+                    if(this.messagesList.get(this.messagesList.size()-1).getType() != Message.TypeMessage.LineStart &&
+                            this.messagesList.get(this.messagesList.size()-1).isMe() == isMe){
+                        if(this.messagesList.get(this.messagesList.size()-1).getTime().contentEquals(discussion.getTime())){
+                            if(this.messagesList.get(this.messagesList.size()-1).getType() == Message.TypeMessage.BlockEnd){
+
+                                this.messagesList.get(this.messagesList.size()-1).setType(Message.TypeMessage.BlockContent);
+
+                            }else{
+                                this.messagesList.get(this.messagesList.size()-1).setType(Message.TypeMessage.BlockStart);
+                            }
+                            typeMessage = Message.TypeMessage.BlockEnd;
+                        }else{
+                            typeMessage = Message.TypeMessage.Conversation;
+                        }
+                    }else{
+                        typeMessage = Message.TypeMessage.Conversation;
+                    }
+                }else{
+                    typeMessage = Message.TypeMessage.Conversation;
+                }
+
+                this.messagesList.add(new Message(discussion.getMessage(), isMe, typeMessage,discussion.getTime(),discussion.getDate()));
 
             }
         }
@@ -126,9 +150,36 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.CustomVi
             if(messagesList.get(position).isMe()){
                 return R.layout.item_bubble_send;
             }
+
             return R.layout.item_bubble_receve;
-        }else if(messagesList.get(position).getType() == Message.TypeMessage.Debut){
-            return R.layout.item_bubble_start_conversation;
+
+        }else if(messagesList.get(position).getType() != Message.TypeMessage.Conversation && messagesList.get(position).getType() != Message.TypeMessage.LineStart) {
+            if(!messagesList.get(position).isMe()){
+                if(messagesList.get(position).getType() == Message.TypeMessage.BlockStart){
+                    return R.layout.item_bubble_receve_blocktimestart;
+                }else if(messagesList.get(position).getType() == Message.TypeMessage.BlockContent){
+                    return R.layout.item_bubble_receve_blocktimecontent;
+                }else if(messagesList.get(position).getType() == Message.TypeMessage.BlockEnd){
+                    return R.layout.item_bubble_receve_blocktimeend;
+                }else if(messagesList.get(position).getType() == Message.TypeMessage.Debut){
+                    return R.layout.item_bubble_start_conversation;
+                }else{
+                    return R.layout.item_bubble_send;
+                }
+            }else{
+                if(messagesList.get(position).getType() == Message.TypeMessage.BlockStart){
+                    return R.layout.item_bubble_send_blocktimestart;
+                }else if(messagesList.get(position).getType() == Message.TypeMessage.BlockContent){
+                    return R.layout.item_bubble_send_blocktimecontent;
+                }else if(messagesList.get(position).getType() == Message.TypeMessage.BlockEnd){
+                    return R.layout.item_bubble_send_blocktimeend;
+                }else if(messagesList.get(position).getType() == Message.TypeMessage.Debut){
+                    return R.layout.item_bubble_start_conversation;
+                }else{
+                    return R.layout.item_bubble_receve;
+                }
+            }
+
         }else if(messagesList.get(position).getType() == Message.TypeMessage.LineStart) {
             return R.layout.line_start_conversation;
         }else{
@@ -144,8 +195,8 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.CustomVi
 
     @Override
     public void onBindViewHolder(@NonNull MessageAdapter.CustomViewHolder holder, int position) {
-        holder.textView.setText(messagesList.get(position).getTextMessage());
-        holder.textViewTime.setText(messagesList.get(position).getTime());
+        if(holder.textView != null)holder.textView.setText(messagesList.get(position).getTextMessage());
+        if(holder.textViewTime != null)holder.textViewTime.setText(messagesList.get(position).getTime());
     }
 
     @Override

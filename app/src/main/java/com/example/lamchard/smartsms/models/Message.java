@@ -12,7 +12,10 @@ public class Message {
         LineStart,
         Conversation,
         Echec,
-        Debut
+        Debut,
+        BlockStart,
+        BlockContent,
+        BlockEnd
     }
 
     public Message(String textMessage, boolean isMe, TypeMessage type, String time, String date) {

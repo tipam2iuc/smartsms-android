@@ -57,6 +57,9 @@ public class FragmentDiscussion extends Fragment {
 
         contacts = new ArrayList<>();
         contacts.add(new Contact("Azangue", "698372782",R.drawable.sandy_contact,"Bonjour","8:25"));
+        contacts.add(new Contact("OrangeMoney", "OrangeMoney",R.drawable.sandy_contact,"Bonjour","8:25"));
+        contacts.add(new Contact("Lesly", "659169879",R.drawable.sandy_contact,"Bonjour","8:25"));
+        contacts.add(new Contact("Evaris", "693270942",R.drawable.sandy_contact,"Bonjour","8:25"));
 
         discussionAdapter = new DiscussionAdapter(contacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL,false));

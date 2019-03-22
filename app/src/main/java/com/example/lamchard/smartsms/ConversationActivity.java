@@ -172,6 +172,10 @@ public class ConversationActivity extends AppCompatActivity {
         List<Discussion> discussions = smsManagers.getSMSCOnversationlist(contact.getPhone());
 
         messageAdapter.addMessageList(discussions);
+
+        if(!isVisible()){
+            recyclerView.scrollToPosition(messageAdapter.getItemCount()-1);
+        }
     }
 
     public boolean isVisible(){
