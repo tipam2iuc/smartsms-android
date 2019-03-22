@@ -22,10 +22,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.lamchard.smartsms.adapters.DiscussionAdapter;
-import com.example.lamchard.smartsms.models.Discussion;
-import com.example.lamchard.smartsms.models.Message;
-import com.example.lamchard.smartsms.models.SmsManagers;
+import com.example.lamchard.smartsms.Adapters.DiscussionAdapter;
+import com.example.lamchard.smartsms.Models.Discussion;
+import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.Models.SmsManagers;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -53,6 +53,9 @@ public class FragmentDiscussion extends Fragment {
         view = inflater.inflate(R.layout.discussion_fragment, container, false);
 
         recyclerView = view.findViewById(R.id.recyclerViewDiscussion);
+
+        discussions = new ArrayList<>();
+        discussions.add(new Discussion("Yves", "677738977","Yo","05:23"));
 
         discussionAdapter = new DiscussionAdapter(discussions);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL,false));

@@ -13,7 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.SimpleCursorAdapter;
 
-import com.example.lamchard.smartsms.adapters.ContactAdapter;
+import com.example.lamchard.smartsms.Adapters.ContactAdapter;
 import com.example.lamchard.smartsms.Models.Contact;
 
 import java.util.ArrayList;

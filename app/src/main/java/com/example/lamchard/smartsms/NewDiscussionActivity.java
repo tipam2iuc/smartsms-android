@@ -25,10 +25,10 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.lamchard.smartsms.adapters.MessageAdapter;
-import com.example.lamchard.smartsms.models.Message;
-import com.example.lamchard.smartsms.models.Permission;
-import com.example.lamchard.smartsms.models.SmsManagers;
+import com.example.lamchard.smartsms.Adapters.MessageAdapter;
+import com.example.lamchard.smartsms.Models.Message;
+import com.example.lamchard.smartsms.Models.Permission;
+import com.example.lamchard.smartsms.Models.SmsManagers;
 
 import java.util.ArrayList;
 import java.util.Calendar;

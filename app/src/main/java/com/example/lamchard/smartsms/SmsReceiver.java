@@ -13,8 +13,8 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.lamchard.smartsms.models.Discussion;
-import com.example.lamchard.smartsms.models.SmsManagers;
+import com.example.lamchard.smartsms.Models.Discussion;
+import com.example.lamchard.smartsms.Models.SmsManagers;
 
 import java.util.ArrayList;
 import java.util.HashMap;

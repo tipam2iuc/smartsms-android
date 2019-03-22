@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.models;
+package com.example.lamchard.smartsms.Models;
 
 import android.Manifest;
 import android.app.Activity;

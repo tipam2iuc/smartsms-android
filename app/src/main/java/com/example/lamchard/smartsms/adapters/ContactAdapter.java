@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.adapters;
+package com.example.lamchard.smartsms.Adapters;
 
 import android.app.Dialog;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.models;
+package com.example.lamchard.smartsms.Models;
 
 import android.Manifest;
 import android.app.Activity;
@@ -70,7 +70,7 @@ public class SmsManagers {
     }
 
     public void getSMSCOnversationlist(String number) {
-        FragmentDiscussion.discussions = new ArrayList<>();
+        discussionList = new ArrayList<>();
 
         String searchQuery = "address like '%" + number + "%'";
 
@@ -80,13 +80,13 @@ public class SmsManagers {
             String count = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS));
             String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY));
             String snippet = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.DATE));
-            FragmentDiscussion.discussions.add(new Discussion(count, body, timeMillisToDate(snippet)));
+            discussionList.add(new Discussion(count, body, timeMillisToDate(snippet)));
         }
         c.close();
     }
 
     public void getSMSCOnversationlist() {
-        FragmentDiscussion.discussions = new ArrayList<>();
+        discussionList = new ArrayList<>();
 
         String[] projections = new String[]{"DISTINCT address","body","date"};
         String selection = "address IS NOT NULL) GROUP BY (address";
@@ -98,7 +98,7 @@ public class SmsManagers {
             String count = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS));
             String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY));
             String snippet = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.DATE));
-            FragmentDiscussion.discussions.add(new Discussion(count, body, timeMillisToDate(snippet)));
+            discussionList.add(new Discussion(count, body, timeMillisToDate(snippet)));
         }
         c.close();
     }

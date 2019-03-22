@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.adapters;
+package com.example.lamchard.smartsms.Adapters;
 
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -24,7 +24,7 @@ public class ViewPagerAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return fragmentListTitles.size();
+        return fragmentList.size();
     }
 
     @Nullable

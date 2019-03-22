@@ -20,7 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-import com.example.lamchard.smartsms.models.Permission;
+import com.example.lamchard.smartsms.Models.Permission;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class ConversationActivity extends AppCompatActivity {

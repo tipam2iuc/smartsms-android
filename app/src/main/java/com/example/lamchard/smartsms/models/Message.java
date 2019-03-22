@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.models;
+package com.example.lamchard.smartsms.Models;
 
 public class Message {
 

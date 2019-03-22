@@ -1,4 +1,4 @@
-package com.example.lamchard.smartsms.adapters;
+package com.example.lamchard.smartsms.Adapters;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
-import com.example.lamchard.smartsms.models.Discussion;
+import com.example.lamchard.smartsms.Models.Discussion;
 import com.example.lamchard.smartsms.R;
 
 import java.util.List;
@@ -69,6 +69,6 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Cu
 
     @Override
     public int getItemCount() {
-        return discussionList.size();
+        return discussionList != null ? discussionList.size() : 0;
     }
 }
