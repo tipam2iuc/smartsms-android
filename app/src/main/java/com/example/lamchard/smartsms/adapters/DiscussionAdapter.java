@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.TextView;
 
+import com.example.lamchard.smartsms.Models.Contact;
 import com.example.lamchard.smartsms.Models.Discussion;
 import com.example.lamchard.smartsms.R;
 
@@ -15,7 +16,7 @@ import java.util.List;
 
 public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.CustomViewHolder> {
 
-    private List<Discussion> discussionList;
+    private List<Contact> contactList;
     private OnItemClickListener listener;
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
@@ -32,20 +33,20 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Cu
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     if (listener != null && position != RecyclerView.NO_POSITION) {
-                        listener.onItemClick(discussionList.get(position));
+                        listener.onItemClick(contactList.get(position));
                     }
                 }
             });
         }
     }
 
-    public DiscussionAdapter(List<Discussion> discussionList) {
+    public DiscussionAdapter(List<Contact> contact) {
 
-        this.discussionList = discussionList;
+        this.contactList = contact;
     }
 
     public interface OnItemClickListener {
-        void onItemClick(Discussion discussion);
+        void onItemClick(Contact contact);
     }
 
     public void setOnItemClickListener(OnItemClickListener listener) {
@@ -62,13 +63,13 @@ public class DiscussionAdapter extends RecyclerView.Adapter<DiscussionAdapter.Cu
 
     @Override
     public void onBindViewHolder(@NonNull DiscussionAdapter.CustomViewHolder holder, int position) {
-        holder.textViewName.setText(discussionList.get(position).getName());
-        holder.textViewLastMessage.setText(discussionList.get(position).getLastMessage());
-        holder.textViewTimeLastMessage.setText(discussionList.get(position).getTimeForLastMessage());
+        holder.textViewName.setText(contactList.get(position).getName());
+        holder.textViewLastMessage.setText(contactList.get(position).getLastMessage());
+        holder.textViewTimeLastMessage.setText(contactList.get(position).getTimeToLastMessage());
     }
 
     @Override
     public int getItemCount() {
-        return discussionList != null ? discussionList.size() : 0;
+        return contactList != null ? contactList.size() : 0;
     }
 }

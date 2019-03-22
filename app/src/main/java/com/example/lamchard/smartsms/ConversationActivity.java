@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -20,17 +21,26 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.example.lamchard.smartsms.Adapters.MessageAdapter;
+import com.example.lamchard.smartsms.Models.Contact;
+import com.example.lamchard.smartsms.Models.Discussion;
+import com.example.lamchard.smartsms.Models.Message;
 import com.example.lamchard.smartsms.Models.Permission;
+import com.example.lamchard.smartsms.Models.SmsManagers;
 import com.google.firebase.auth.FirebaseAuth;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConversationActivity extends AppCompatActivity {
 
-    public static final String EXTRA_ID =
-            "com.example.lamchard.smartsms.EXTRA_ID";
     public static final String EXTRA_Name =
             "com.example.lamchard.smartsms.EXTRA_Name";
-    public static final String EXTRA_PhoneNumber =
-            "com.example.lamchard.smartsms.EXTRA_PhoneNumber";
+
+    private Contact contact;
+    private SmsManagers smsManagers;
+    private MessageAdapter messageAdapter;
+    private List<Message> messageList;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
     private static final int MY_PERMISSIONS_REQUEST_CALL_PHONE = 2;
@@ -54,7 +64,9 @@ public class ConversationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_conversation);
 
+        smsManagers = new SmsManagers(this);
         permission = new Permission(this,this);
+        recyclerView = findViewById(R.id.recyclerView_conversation);
 
         imageButtonSendMessage_conversation = findViewById(R.id.imageButtonSendMessage_conversation);
         editTextMessage_conversation = findViewById(R.id.editTextMessage_conversation);
@@ -64,8 +76,16 @@ public class ConversationActivity extends AppCompatActivity {
         this.configureToolbar();
 
         Intent intent = getIntent();
-        number = intent.getStringExtra(EXTRA_Name);
-        toolbar.setTitle(number);
+        contact = (Contact) intent.getSerializableExtra(EXTRA_Name);
+        toolbar.setTitle(contact.getName());
+
+        messageList = new ArrayList<>();
+        messageAdapter = new MessageAdapter();
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+        recyclerView.setAdapter(messageAdapter);
+
+        //LIST CONVERSATION
+        showConversatonMessage();
 
         imageButtonSendMessage_conversation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,5 +165,19 @@ public class ConversationActivity extends AppCompatActivity {
                 }
             }
         }
+    }
+
+    private void showConversatonMessage(){
+
+        List<Discussion> discussions = smsManagers.getSMSCOnversationlist(contact.getPhone());
+
+        messageAdapter.addMessageList(discussions);
+    }
+
+    public boolean isVisible(){
+        LinearLayoutManager linearLayoutManager = (LinearLayoutManager)recyclerView.getLayoutManager();
+        int positionOfLastVisible = linearLayoutManager.findLastCompletelyVisibleItemPosition();
+        int itemCount = recyclerView.getAdapter().getItemCount();
+        return (positionOfLastVisible>=itemCount);
     }
 }

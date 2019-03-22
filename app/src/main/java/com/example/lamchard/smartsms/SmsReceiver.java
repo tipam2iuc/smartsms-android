@@ -18,6 +18,7 @@ import com.example.lamchard.smartsms.Models.SmsManagers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static android.support.constraint.Constraints.TAG;
@@ -95,7 +96,7 @@ public class SmsReceiver extends BroadcastReceiver {
 
     private void listOfDiscussion(Activity context){
 
-        FragmentDiscussion.discussions = new ArrayList<>();
+        List<Discussion> discussion = new ArrayList<>();
         try {
             Cursor cursor = context.getContentResolver()
                     .query(Telephony.Sms.Inbox.CONTENT_URI, new String[]{"address","body","date"}, null, null, "date DESC");
@@ -104,7 +105,7 @@ public class SmsReceiver extends BroadcastReceiver {
                 String number = cursor.getString(cursor.getColumnIndexOrThrow("address")).toString();
                 String body = cursor.getString(cursor.getColumnIndexOrThrow("body")).toString();
                 String date = cursor.getString(cursor.getColumnIndexOrThrow("date")).toString();
-                FragmentDiscussion.discussions.add(new Discussion(number, body, date));
+                discussion.add(new Discussion(number, body, date,"22/22/22","1"));
             }
             cursor.close();
         }catch (Exception e){

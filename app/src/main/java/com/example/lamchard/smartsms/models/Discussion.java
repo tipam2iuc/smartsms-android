@@ -1,24 +1,28 @@
 package com.example.lamchard.smartsms.Models;
 
-public class Discussion {
+import java.io.Serializable;
 
-    private String name;
+public class Discussion implements Serializable {
+
     private String phoneNumber;
-    private String lastMessage;
-    private String timeForLastMessage;
+    private String message;
+    private String time;
+    private String date;
+    private String type;
 
 
-    public Discussion(String name, String lastMessage, String timeForLastMessage) {
-        this.name = name;
-        this.lastMessage = lastMessage;
-        this.timeForLastMessage = timeForLastMessage;
+    public Discussion(String number, String message, String time) {
+        this.phoneNumber = number;
+        this.message = message;
+        this.time = time;
     }
 
-    public Discussion(String name, String phoneNumber ,String lastMessage, String timeForLastMessage) {
-        this.name = name;
-        this.lastMessage = lastMessage;
-        this.timeForLastMessage = timeForLastMessage;
-        this.phoneNumber = phoneNumber;
+    public Discussion(String number, String message, String time, String date, String type) {
+        this.phoneNumber = number;
+        this.message = message;
+        this.time= time;
+        this.type = type;
+        this.date = date;
     }
 
     public String getPhoneNumber() {
@@ -29,27 +33,35 @@ public class Discussion {
         this.phoneNumber = phoneNumber;
     }
 
-    public String getName() {
-        return name;
+    public String getMessage() {
+        return message;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMessage(String message) {
+        this.message = message;
     }
 
-    public String getLastMessage() {
-        return lastMessage;
+    public String getTime() {
+        return time;
     }
 
-    public void setLastMessage(String lastMessage) {
-        this.lastMessage = lastMessage;
+    public void setTime(String time) {
+        this.time = time;
     }
 
-    public String getTimeForLastMessage() {
-        return timeForLastMessage;
+    public String getDate() {
+        return date;
     }
 
-    public void setTimeForLastMessage(String timeForLastMessage) {
-        this.timeForLastMessage = timeForLastMessage;
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

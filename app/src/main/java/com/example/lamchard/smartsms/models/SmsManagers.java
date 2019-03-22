@@ -29,7 +29,6 @@ import java.util.List;
 
 public class SmsManagers {
     private static Context context;
-    public static List<Discussion> discussionList;
     private static final String TAG = NewDiscussionActivity.class.getSimpleName();
 
     public  SmsManagers(Context context) {
@@ -69,45 +68,64 @@ public class SmsManagers {
         }
     }
 
-    public void getSMSCOnversationlist(String number) {
-        discussionList = new ArrayList<>();
+    public List<Discussion> getSMSCOnversationlist(String number) {
+        List<Discussion> discussionList = new ArrayList<>();
 
         String searchQuery = "address like '%" + number + "%'";
 
-        Cursor c = context.getContentResolver().query(Telephony.Sms.CONTENT_URI,null,searchQuery, null, "date desc");
+        Cursor c = context.getContentResolver().query(Telephony.Sms.CONTENT_URI,null,searchQuery, null, "date asc");
 
         while(c.moveToNext()){
             String count = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS));
             String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY));
             String snippet = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.DATE));
-            discussionList.add(new Discussion(count, body, timeMillisToDate(snippet)));
+            String type = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.TYPE));
+            Log.i("Information","Number: " + number);
+            Log.i("Information","Adress: " + count);
+            Log.i("Information","Body: " + body);
+            Log.i("Information","time: " + timeMillisToTime(snippet));
+            Log.i("Information","Type: " + type);
+            Log.i("Information","Date: " + timeMillisToDate(snippet));
+            discussionList.add(new Discussion(count, body, timeMillisToTime(snippet),timeMillisToDate(snippet),type));
         }
         c.close();
+
+        return discussionList;
     }
 
-    public void getSMSCOnversationlist() {
-        discussionList = new ArrayList<>();
+    public List<Discussion> getSMSCOnversationlist() {
+        List<Discussion> discussionList = new ArrayList<>();
 
         String[] projections = new String[]{"DISTINCT address","body","date"};
         String selection = "address IS NOT NULL) GROUP BY (address";
 
         Cursor c = context.getContentResolver().query(Telephony.Sms.CONTENT_URI,null,selection, null, "date desc");
 
-
         while(c.moveToNext()){
             String count = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.ADDRESS));
             String body = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.BODY));
             String snippet = c.getString(c.getColumnIndexOrThrow(Telephony.Sms.DATE));
+//            Log.i("Information","Adress: " + count);
+//            Log.i("Information","Body: " + body);
+//            Log.i("Information","Snippet: " + snippet);
             discussionList.add(new Discussion(count, body, timeMillisToDate(snippet)));
         }
         c.close();
+
+        return discussionList;
     }
 
     private String timeMillisToDate(String timeMillis){
-        DateFormat df = new SimpleDateFormat("dd/MM/yyyy  HH:mm");
+        Date date = new Date(Long.parseLong(timeMillis));
+        return DateFormat.getDateInstance().format(date);
+    }
+
+    private String timeMillisToTime(String timeMillis){
+        DateFormat df = new SimpleDateFormat("HH:mm");
         Date date = new Date(Long.parseLong(timeMillis));
         return df.format(date);
     }
+
 
     public long getCurrentTimeMillis(Date date){
 

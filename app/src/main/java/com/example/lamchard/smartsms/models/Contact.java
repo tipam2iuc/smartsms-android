@@ -1,8 +1,12 @@
 package com.example.lamchard.smartsms.Models;
 
-public class Contact {
+import java.io.Serializable;
+
+public class Contact implements Serializable {
 
     private String Name;
+    private String lastMessage;
+    private String timeToLastMessage;
     private String Phone;
     private int Photo;
 
@@ -10,6 +14,12 @@ public class Contact {
         Name = name;
         Phone = phone;
         Photo = photo;
+    }
+
+    public Contact(String name, String phone, int photo, String lastMessage, String timeToLastMessage){
+        this(name,phone,photo);
+        this.lastMessage = lastMessage;
+        this.timeToLastMessage = timeToLastMessage;
     }
 
     public Contact() {}
@@ -36,5 +46,21 @@ public class Contact {
 
     public void setPhoto(int photo) {
         Photo = photo;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public String getTimeToLastMessage() {
+        return timeToLastMessage;
+    }
+
+    public void setTimeToLastMessage(String timeToLastMessage) {
+        this.timeToLastMessage = timeToLastMessage;
     }
 }

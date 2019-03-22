@@ -15,11 +15,20 @@ public class Message {
         Debut
     }
 
-    public Message(String textMessage, boolean isMe, TypeMessage type) {
+    public Message(String textMessage, boolean isMe, TypeMessage type, String time, String date) {
         this.textMessage = textMessage;
         this.isMe = isMe;
         this.type = type;
+        this.time = time;
+        this.date = date;
     }
+
+    public Message(String date, TypeMessage type) {
+        this.textMessage = date;
+        this.isMe = isMe;
+        this.type = type;
+    }
+
 
     public String getDate() {
         return date;
@@ -35,12 +44,6 @@ public class Message {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public Message(String date, TypeMessage type) {
-        this.textMessage = date;
-        this.isMe = isMe;
-        this.type = type;
     }
 
     public Message() {

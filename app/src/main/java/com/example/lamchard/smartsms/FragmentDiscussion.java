@@ -23,6 +23,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.example.lamchard.smartsms.Adapters.DiscussionAdapter;
+import com.example.lamchard.smartsms.Models.Contact;
 import com.example.lamchard.smartsms.Models.Discussion;
 import com.example.lamchard.smartsms.Models.Message;
 import com.example.lamchard.smartsms.Models.SmsManagers;
@@ -42,7 +43,7 @@ public class FragmentDiscussion extends Fragment {
     private RecyclerView recyclerView;
     public static DiscussionAdapter discussionAdapter;
 
-    public static List<Discussion> discussions;
+    public static List<Contact> contacts;
 
     public FragmentDiscussion() {
     }
@@ -54,23 +55,22 @@ public class FragmentDiscussion extends Fragment {
 
         recyclerView = view.findViewById(R.id.recyclerViewDiscussion);
 
-        discussions = new ArrayList<>();
-        discussions.add(new Discussion("Yves", "677738977","Yo","05:23"));
+        contacts = new ArrayList<>();
+        contacts.add(new Contact("Azangue", "698372782",R.drawable.sandy_contact,"Bonjour","8:25"));
 
-        discussionAdapter = new DiscussionAdapter(discussions);
+        discussionAdapter = new DiscussionAdapter(contacts);
         recyclerView.setLayoutManager(new LinearLayoutManager(container.getContext(), LinearLayoutManager.VERTICAL,false));
         recyclerView.setAdapter(discussionAdapter);
 
         discussionAdapter.setOnItemClickListener(new DiscussionAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Discussion discussion) {
-
+            public void onItemClick(Contact contact) {
                 Intent intent = new Intent(container.getContext(), ConversationActivity.class);
-                intent.putExtra(ConversationActivity.EXTRA_Name, discussion.getName());
-                intent.putExtra(ConversationActivity.EXTRA_PhoneNumber, discussion.getPhoneNumber());
+                intent.putExtra(ConversationActivity.EXTRA_Name, contact);
                 startActivityForResult(intent, CONVERSATION_REQUEST);
             }
         });
+
 
         return view;
     }
